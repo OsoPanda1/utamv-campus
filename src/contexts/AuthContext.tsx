@@ -12,12 +12,28 @@ import type { Database } from "@/integrations/supabase/types";
 
 type AppRole = Database["public"]["Enums"]["app_role"];
 
+export interface AuthProfile {
+  id: string;
+  user_id: string;
+  display_name: string | null;
+  full_name: string | null;
+  email: string | null;
+  bio: string | null;
+  country: string | null;
+  phone: string | null;
+  profession: string | null;
+  avatar_url: string | null;
+  is_paid: boolean | null;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
   isPaid: boolean;
   isAdmin: boolean;
+  profile: AuthProfile | null;
+  refreshProfile: () => Promise<void>;
   role: AppRole;
   signUp: (
     email: string,
