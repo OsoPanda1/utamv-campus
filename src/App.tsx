@@ -42,10 +42,13 @@ import CheckoutCancel from "@/pages/checkout/CheckoutCancel";
 // Campus Pages
 import Enrollments from "@/pages/campus/Enrollments";
 import Certificates from "@/pages/campus/Certificates";
+import Campus from "@/pages/Campus";
+import ControlEscolar from "@/pages/ControlEscolar";
 
 // Route Guards
 import { RequireAuth } from "@/components/guards/RequireAuth";
 import { RequirePaid } from "@/components/guards/RequirePaid";
+import { RequireAdmin } from "@/components/guards/RequireAdmin";
 
 function App() {
   return (
