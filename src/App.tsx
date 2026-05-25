@@ -44,6 +44,7 @@ import Enrollments from "@/pages/campus/Enrollments";
 import Certificates from "@/pages/campus/Certificates";
 import Campus from "@/pages/Campus";
 import ControlEscolar from "@/pages/ControlEscolar";
+import CursoLeccion from "@/pages/CursoLeccion";
 
 // Route Guards
 import { RequireAuth } from "@/components/guards/RequireAuth";
@@ -63,6 +64,8 @@ function App() {
         {/* Programas */}
         <Route path="/programas" element={<Programas />} />
         <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/curriculum/:cursoSlug" element={<CursoLeccion />} />
+        <Route path="/curriculum/:cursoSlug/:moduloSlug/:leccionSlug" element={<CursoLeccion />} />
         <Route path="/programas/:slug" element={<ProgramDetail />} />
         <Route path="/programas/maestrias" element={<Maestrias />} />
         <Route path="/programas/master-profesional" element={<MasterProfesional />} />
