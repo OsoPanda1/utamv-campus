@@ -241,6 +241,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // =========================
   // Context value
   // =========================
+  const refreshProfile = useCallback(async () => {
+    if (user?.id) await fetchProfile(user.id);
+  }, [user?.id, fetchProfile]);
+
+  // Load profile alongside payment/role
+  useEffect(() => {
+    if (user?.id) fetchProfile(user.id);
+    else setProfile(null);
+  }, [user?.id, fetchProfile]);
+
   const value = useMemo<AuthContextType>(
     () => ({
       user,
@@ -249,12 +259,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       isPaid,
       isAdmin,
       role,
+      profile,
+      refreshProfile,
       signUp,
       signIn,
       signOut,
       refreshPaymentStatus,
     }),
-    [user, session, loading, isPaid, isAdmin, role, signUp, signIn, signOut, refreshPaymentStatus],
+    [user, session, loading, isPaid, isAdmin, role, profile, refreshProfile, signUp, signIn, signOut, refreshPaymentStatus],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
