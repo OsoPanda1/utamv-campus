@@ -67,6 +67,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isPaid, setIsPaid] = useState(false);
   const [role, setRole] = useState<AppRole>("student");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [profile, setProfile] = useState<AuthProfile | null>(null);
+
+  const fetchProfile = useCallback(async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("id,user_id,display_name,full_name,email,bio,country,phone,profession,avatar_url,is_paid")
+        .eq("user_id", userId)
+        .maybeSingle();
+      if (error) {
+        console.error("Error fetching profile:", error);
+        return;
+      }
+      setProfile((data as AuthProfile) ?? null);
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    }
+  }, []);
 
   // =========================
   // Payment status
