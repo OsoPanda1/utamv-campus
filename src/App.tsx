@@ -42,10 +42,13 @@ import CheckoutCancel from "@/pages/checkout/CheckoutCancel";
 // Campus Pages
 import Enrollments from "@/pages/campus/Enrollments";
 import Certificates from "@/pages/campus/Certificates";
+import Campus from "@/pages/Campus";
+import ControlEscolar from "@/pages/ControlEscolar";
 
 // Route Guards
 import { RequireAuth } from "@/components/guards/RequireAuth";
 import { RequirePaid } from "@/components/guards/RequirePaid";
+import { RequireAdmin } from "@/components/guards/RequireAdmin";
 
 function App() {
   return (
@@ -103,8 +106,10 @@ function App() {
 
         {/* CAMPUS VIRTUAL */}
         <Route path="/campus-virtual" element={<RequireAuth><Dashboard /></RequireAuth>} />
+        <Route path="/campus" element={<RequireAuth><Campus /></RequireAuth>} />
         <Route path="/campus/enrollments" element={<RequireAuth><Enrollments /></RequireAuth>} />
         <Route path="/campus/certificates" element={<RequireAuth><Certificates /></RequireAuth>} />
+        <Route path="/control-escolar" element={<RequireAuth><RequireAdmin><ControlEscolar /></RequireAdmin></RequireAuth>} />
         <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
         <Route path="/modulos" element={<RequireAuth><RequirePaid><Modulos /></RequirePaid></RequireAuth>} />
         <Route path="/modulos/:id" element={<RequireAuth><RequirePaid><ModuleViewer /></RequirePaid></RequireAuth>} />

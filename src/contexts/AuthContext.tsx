@@ -12,12 +12,28 @@ import type { Database } from "@/integrations/supabase/types";
 
 type AppRole = Database["public"]["Enums"]["app_role"];
 
+export interface AuthProfile {
+  id: string;
+  user_id: string;
+  display_name: string | null;
+  full_name: string | null;
+  email: string | null;
+  bio: string | null;
+  country: string | null;
+  phone: string | null;
+  profession: string | null;
+  avatar_url: string | null;
+  is_paid: boolean | null;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
   isPaid: boolean;
   isAdmin: boolean;
+  profile: AuthProfile | null;
+  refreshProfile: () => Promise<void>;
   role: AppRole;
   signUp: (
     email: string,
@@ -51,6 +67,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isPaid, setIsPaid] = useState(false);
   const [role, setRole] = useState<AppRole>("student");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [profile, setProfile] = useState<AuthProfile | null>(null);
+
+  const fetchProfile = useCallback(async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("id,user_id,display_name,full_name,email,bio,country,phone,profession,avatar_url,is_paid")
+        .eq("user_id", userId)
+        .maybeSingle();
+      if (error) {
+        console.error("Error fetching profile:", error);
+        return;
+      }
+      setProfile((data as AuthProfile) ?? null);
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    }
+  }, []);
 
   // =========================
   // Payment status
@@ -207,6 +241,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // =========================
   // Context value
   // =========================
+  const refreshProfile = useCallback(async () => {
+    if (user?.id) await fetchProfile(user.id);
+  }, [user?.id, fetchProfile]);
+
+  // Load profile alongside payment/role
+  useEffect(() => {
+    if (user?.id) fetchProfile(user.id);
+    else setProfile(null);
+  }, [user?.id, fetchProfile]);
+
   const value = useMemo<AuthContextType>(
     () => ({
       user,
@@ -215,12 +259,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       isPaid,
       isAdmin,
       role,
+      profile,
+      refreshProfile,
       signUp,
       signIn,
       signOut,
       refreshPaymentStatus,
     }),
-    [user, session, loading, isPaid, isAdmin, role, signUp, signIn, signOut, refreshPaymentStatus],
+    [user, session, loading, isPaid, isAdmin, role, profile, refreshProfile, signUp, signIn, signOut, refreshPaymentStatus],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
