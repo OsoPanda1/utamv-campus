@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Code2, Palette, BookOpen, Megaphone, ShieldCheck, Microscope, Send, Globe2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 const ROLES = [
   { icon: Code2, title: 'Ingeniería & DevOps', tags: ['React', 'Supabase', 'TypeScript', 'CI/CD', 'Edge Functions'], desc: 'Endurecer la plataforma, escalar infraestructura federada y mantener el kernel Isabella.' },
