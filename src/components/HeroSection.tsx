@@ -1,217 +1,110 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Play, Award, Users, Globe, Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, ShieldCheck, BookOpen, Network, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroBg from '@/assets/hero-bg.jpg';
-import aiAssistant from '@/assets/ai-assistant.jpg';
+import utamvSeal from '@/assets/utamv-logo-campus.png';
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
 
-  // Load voices on component mount
   useEffect(() => {
     const loadVoices = () => {
-      const voices = speechSynthesis.getVoices();
-      if (voices.length > 0) {
-        setVoicesLoaded(true);
-      }
+      if (speechSynthesis.getVoices().length > 0) setVoicesLoaded(true);
     };
-
     loadVoices();
     speechSynthesis.addEventListener('voiceschanged', loadVoices);
     return () => speechSynthesis.removeEventListener('voiceschanged', loadVoices);
   }, []);
 
   const playWelcome = () => {
-    if (!voicesLoaded) {
-      // Force load voices
-      speechSynthesis.getVoices();
-    }
-
+    if (!voicesLoaded) speechSynthesis.getVoices();
     setIsPlaying(true);
     const utterance = new SpeechSynthesisUtterance(
-      "Bienvenido a UTAMV Campus Online. Soy Isabella Villaseñor, tu guía académica de inteligencia artificial. Estás a punto de comenzar una transformación que te posicionará como líder en el mundo digital. Prepárate para dominar las estrategias más avanzadas de nueva generacion. Universidad TAMV, formando líderes digitales desde Latinoamérica para el mundo."
+      'Bienvenido al kernel UTAMV ISABELLA. Piensa como Edwin EOCT: psicología fría, rigor académico y pensamiento sistémico. Diseñamos, auditamos y defendemos conocimiento para una educación civilizatoria. Operamos desde Hidalgo, México, con infraestructura cognitiva soberana para universidades, gobiernos y nodos territoriales.'
     );
     utterance.lang = 'es-MX';
     utterance.rate = 0.95;
-    utterance.pitch = 1.15; // Slightly higher pitch for feminine voice
-
-    // Get available voices and prioritize female Spanish voices
+    utterance.pitch = 1.1;
     const voices = speechSynthesis.getVoices();
-    const femaleVoice = voices.find(v => {
-      const name = v.name.toLowerCase();
-      const isSpanish = v.lang.includes('es');
-      const isFemale = name.includes('female') || 
-                       name.includes('alexa') || 
-                       name.includes('Claudia') || 
-                       name.includes('Maria') || 
-                       name.includes('sabina') ||
-                       name.includes('conchita') ||
-                       name.includes('lucia') ||
-                       name.includes('penelope') ||
-                       name.includes('lupe') ||
-                       name.includes('mia') ||
-                       name.includes('google español') ||
-                       (isSpanish && name.includes('female'));
-      return isSpanish && isFemale;
-    }) || voices.find(v => v.lang.includes('es') && v.name.toLowerCase().includes('female'))
-       || voices.find(v => v.lang.includes('es'));
-
-    if (femaleVoice) {
-      utterance.voice = femaleVoice;
-    }
-
+    const v = voices.find(v => v.lang.includes('es') && /female|maria|lucia|paulina|sabina|conchita|google español/i.test(v.name))
+      || voices.find(v => v.lang.includes('es'));
+    if (v) utterance.voice = v;
     utterance.onend = () => setIsPlaying(false);
     utterance.onerror = () => setIsPlaying(false);
     speechSynthesis.speak(utterance);
   };
 
-  const stopWelcome = () => {
-    speechSynthesis.cancel();
-    setIsPlaying(false);
-  };
+  const stopWelcome = () => { speechSynthesis.cancel(); setIsPlaying(false); };
+
+  const valueProps = [
+    { icon: Network, text: 'Campus como sistema civilizatorio: cursos, investigación y políticas conectadas a CITEMESH, GEMET, SDMD-7 y 4L.' },
+    { icon: BookOpen, text: 'Respuestas con evidencia: RAG sobre corpus TAMV/UTAMV y fuentes académicas verificadas, con citas y métricas de rigor.' },
+    { icon: Sparkles, text: 'Skill Edwin/EOCT: IA que habla en 3S (Simple, Sencillo, Sobrio) y devuelve planes, frameworks y módulos listos para producción.' },
+    { icon: ShieldCheck, text: 'Listo para instituciones: API REST/GraphQL, despliegue federado por nodo, gobernanza y alineación a ISO 21001 y Quality Matters.' },
+  ];
 
   return (
-    <section 
-      id="inicio"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-    >
-      {/* Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroBg})` }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/95 via-[#0A1128]/85 to-[#0A1128]" />
       </div>
 
-      {/* Floating particles effect - Silver */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-silver/30 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 5}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-[1.3fr_1fr] gap-16 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-silver/30 bg-silver/10 mb-6">
-              <Award className="w-4 h-4 text-silver" />
-              <span className="text-sm font-medium text-silver">Cohorte Fundadora - 50% Descuento</span>
+          <div className="animate-slide-up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-platinum/40 bg-platinum/5 mb-8">
+              <ShieldCheck className="w-4 h-4 text-platinum" />
+              <span className="text-xs font-medium text-platinum tracking-[0.2em] uppercase">UTAMV · Isabella Kernel</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-6 leading-tight">
-              <span className="text-foreground">Master Elite</span>
-              <br />
-              <span className="text-gradient-silver">Marketing Digital</span>
-              <br />
-              <span className="text-teal">2026</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-[1.1] text-white">
+              Arquitectura cognitiva para una{' '}
+              <span className="text-gradient-silver">educación civilizatoria</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
-              El primer programa internacional de clase elite nacido desde Latinoamérica. 
-              Domina SEO, metadatos, geo-targeting y posicionamiento avanzado con IA.
+            <h2 className="text-base md:text-lg text-platinum/80 mb-10 max-w-2xl leading-relaxed">
+              El kernel UTAMV‑ISABELLA piensa como Edwin EOCT: psicología fría, rigor académico y pensamiento sistémico para diseñar, auditar y defender conocimiento en TAMV Online.
+            </h2>
+
+            <ul className="space-y-4 mb-10 max-w-2xl">
+              {valueProps.map((vp, i) => (
+                <li key={i} className="flex gap-3 items-start">
+                  <vp.icon className="w-5 h-5 text-platinum mt-1 flex-shrink-0" />
+                  <span className="text-sm text-white/75 leading-relaxed">{vp.text}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <Button size="xl" asChild className="bg-platinum text-[#0A1128] hover:bg-platinum/90 font-semibold">
+                <Link to="/campus-virtual">Probar kernel académico</Link>
+              </Button>
+              <Button variant="outline" size="xl" asChild className="border-platinum/50 text-platinum hover:bg-platinum/10">
+                <Link to="/admisiones/contacto">Recibir briefing para mi universidad</Link>
+              </Button>
+            </div>
+
+            <p className="text-xs text-platinum/60 max-w-xl leading-relaxed">
+              Diseñado y operado desde Hidalgo, México. Infraestructura cognitiva soberana para universidades, gobiernos y nodos territoriales.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
-              <Button variant="elite" size="xl" asChild>
-                <Link to="/inscripcion">
-                  <Play className="w-5 h-5" />
-                  Inscribirme - $199 USD
-                </Link>
-              </Button>
-              <Button variant="teal" size="xl" asChild>
-                <Link to="/programa">Ver Programa Completo</Link>
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
-              <div className="text-center lg:text-left">
-                <p className="text-2xl md:text-3xl font-display font-bold text-silver">10</p>
-                <p className="text-sm text-muted-foreground">Módulos</p>
-              </div>
-              <div className="text-center lg:text-left">
-                <p className="text-2xl md:text-3xl font-display font-bold text-teal">50+</p>
-                <p className="text-sm text-muted-foreground">Horas</p>
-              </div>
-              <div className="text-center lg:text-left">
-                <p className="text-2xl md:text-3xl font-display font-bold text-foreground">∞</p>
-                <p className="text-sm text-muted-foreground">Acceso</p>
-              </div>
-            </div>
           </div>
 
-          {/* AI Assistant */}
-          <div className="relative flex justify-center lg:justify-end" style={{ animationDelay: '0.3s' }}>
+          {/* Seal */}
+          <div className="relative flex justify-center lg:justify-end">
             <div className="relative group">
-              {/* Glow effect - Silver */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-silver/30 via-teal/20 to-silver/30 rounded-full blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse-silver" />
-              
-              {/* AI Image - Logo increased by 50% */}
-              <div className="relative w-96 h-96 md:w-[480px] md:h-[480px] rounded-full overflow-hidden border-4 border-silver/50 shadow-silver animate-float">
-                <img 
-                  src={aiAssistant} 
-                  alt="Isabella Villaseñor - AI Guide" 
-                  className="w-full h-full object-cover"
-                />
+              <div className="absolute -inset-8 bg-gradient-to-br from-platinum/30 via-gold/10 to-platinum/20 rounded-full blur-3xl opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
+              <div className="relative w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-2 border-platinum/40 shadow-2xl animate-float bg-[#0A1128]">
+                <img src={utamvSeal} alt="Sello Institucional UTAMV Campus Online" className="w-full h-full object-contain" />
               </div>
-
-              {/* Play Button */}
               <button
                 onClick={isPlaying ? stopWelcome : playWelcome}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-silver to-silver-light text-primary-foreground font-semibold shadow-silver hover:shadow-[0_8px_40px_-5px_hsla(210,20%,70%,0.6)] transition-all duration-300 hover:-translate-y-1"
+                className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A1128] border border-platinum/50 text-platinum text-sm font-semibold shadow-xl hover:bg-platinum/10 transition-all duration-300"
               >
-                {isPlaying ? (
-                  <>
-                    <VolumeX className="w-5 h-5" />
-                    Detener
-                  </>
-                ) : (
-                  <>
-                    <Volume2 className="w-5 h-5" />
-                    Escuchar a Isabella
-                  </>
-                )}
+                {isPlaying ? <><VolumeX className="w-4 h-4" /> Detener</> : <><Volume2 className="w-4 h-4" /> Escuchar a Isabella</>}
               </button>
-
-              {/* Info Badge */}
-              <div className="absolute -right-4 top-1/4 px-4 py-2 rounded-lg bg-card border border-border shadow-lg animate-slide-up" style={{ animationDelay: '0.5s' }}>
-                <p className="text-xs text-muted-foreground">Tu Guía IA</p>
-                <p className="text-sm font-semibold text-foreground">Isabella Villaseñor</p>
-                <p className="text-xs text-teal">Voz Femenina Profesional</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Trust Badges */}
-        <div className="mt-20 pt-10 border-t border-border/50">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-60">
-            <div className="flex items-center gap-2">
-              <Globe className="w-5 h-5 text-silver" />
-              <span className="text-sm">100% Online</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-teal" />
-              <span className="text-sm">Comunidad Global</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-silver" />
-              <span className="text-sm">Certificación UTAMV</span>
-            </div>
-            <div className="text-sm font-display font-semibold text-gradient-silver">
-              Orgullosamente Latinoamericanos
             </div>
           </div>
         </div>
