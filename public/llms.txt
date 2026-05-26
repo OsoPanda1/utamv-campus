@@ -1,0 +1,35 @@
+# UTAMV — Universidad Tecnológica Anubis Marcos Villaseñor
+
+> Campus virtual e infraestructura cognitiva soberana para educación civilizatoria. Programas de marketing digital, IA aplicada, estrategia y gobernanza digital con certificación verificable.
+
+UTAMV es una institución educativa privada en preparación de RVOE, con sede operativa en Hidalgo, México. Opera bajo el método TAMV/4L y el sistema EOCT (Edwin Oswaldo Castillo Trejo), integrando IA soberana (Isabella Kernel), pedagogía 5-puntos y alineación a ISO 21001 y Quality Matters.
+
+## Programas
+- [Catálogo de Programas](/programas): Maestrías, Máster Profesional, Diplomados y Certificaciones en marketing digital, IA, analítica y estrategia.
+- [Maestrías](/programas/maestrias): Programas de posgrado de 12-18 meses.
+- [Máster Profesional](/programas/master-profesional): Formación ejecutiva de 6-12 meses.
+- [Diplomados](/programas/diplomados): Programas intensivos de 3-6 meses.
+- [Certificaciones](/programas/certificaciones): Microcredenciales verificables.
+- [Catálogo completo](/catalogo): Todos los cursos disponibles.
+
+## Docentes
+- [Cuerpo docente](/docentes): Rectoría, dirección y profesorado UTAMV.
+- [Rectoría](/docentes/rectoria): Edwin Oswaldo Castillo Trejo (Anubis Villaseñor), autor del método TAMV/4L.
+
+## Investigación
+- [Investigación UTAMV](/investigacion): Líneas de investigación en IA soberana, arquitectura digital y educación.
+- [Proyectos](/investigacion/proyectos): Iniciativas activas.
+- [Publicaciones](/investigacion/publicaciones): White papers, DOIs y referencias académicas.
+
+## Admisiones
+- [Proceso de admisión](/admisiones): Información para postulantes.
+- [Requisitos](/admisiones/requisitos): Documentación requerida.
+- [Contacto institucional](/admisiones/contacto): Canales oficiales.
+
+## Información institucional
+- [Preguntas frecuentes](/preguntas-frecuentes): Información sobre programas, certificación y validez.
+- [Verificación de certificados](/verificar-certificado): Validación pública con QR.
+- [Convocatoria de colaboradores](/colabora): Perfiles abiertos para sumarse al proyecto.
+
+## Optional
+- [Centro de ayuda](/ayuda): Soporte estudiantil.
