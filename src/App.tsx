@@ -21,6 +21,7 @@ import PreguntasFrecuentes from "@/pages/PreguntasFrecuentes";
 import NotFound from "@/pages/NotFound";
 import PlaceholderPage from "@/pages/PlaceholderPage";
 import Catalogo from "@/pages/Catalogo";
+import Colabora from "@/pages/Colabora";
 import Maestrias from "@/pages/programs/Maestrias";
 import MasterProfesional from "@/pages/programs/MasterProfesional";
 import Diplomados from "@/pages/programs/Diplomados";
@@ -64,6 +65,7 @@ function App() {
         {/* Programas */}
         <Route path="/programas" element={<Programas />} />
         <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/colabora" element={<Colabora />} />
         <Route path="/curriculum/:cursoSlug" element={<CursoLeccion />} />
         <Route path="/curriculum/:cursoSlug/:moduloSlug/:leccionSlug" element={<CursoLeccion />} />
         <Route path="/programas/:slug" element={<ProgramDetail />} />
