@@ -22,6 +22,11 @@ const ROLES = [
 ];
 
 export default function Colabora() {
+  useEffect(() => {
+    document.title = 'Convocatoria de Colaboradores | UTAMV Campus';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'Súmate al proyecto UTAMV: ingeniería, IA, diseño pedagógico, UX, marketing y gobernanza. Construyamos infraestructura cognitiva soberana para LATAM.');
+  }, []);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ nombre: '', email: '', rol: '', portfolio: '', mensaje: '' });
 
