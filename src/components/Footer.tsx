@@ -16,6 +16,7 @@ const Footer = () => {
       { label: 'Verificar Certificado', href: '/verificar-certificado' },
       { label: 'Preguntas Frecuentes', href: '/preguntas-frecuentes' },
       { label: 'Ayuda', href: '/ayuda' },
+      { label: 'Colabora con UTAMV', href: '/colabora' },
     ],
     legal: [
       { label: 'Términos y Condiciones', href: '#' },
