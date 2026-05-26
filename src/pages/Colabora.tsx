@@ -58,11 +58,6 @@ export default function Colabora() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Convocatoria de Colaboradores | UTAMV Campus</title>
-        <meta name="description" content="Súmate al proyecto UTAMV: ingeniería, IA, diseño pedagógico, UX, marketing y gobernanza. Construyamos infraestructura cognitiva soberana para LATAM." />
-        <link rel="canonical" href="https://utamv-campus.lovable.app/colabora" />
-      </Helmet>
 
       <Header />
 
