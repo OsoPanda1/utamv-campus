@@ -51,6 +51,14 @@ async function requireAdmin(authHeader: string) {
   return { error: null, user: userData.user, admin: adminClient };
 }
 
+async function requireUser(authHeader: string) {
+  if (!supabaseUrl || !anonKey || !serviceRoleKey) throw new Error('Backend académico no configurado.');
+  const userClient = createClient(supabaseUrl, anonKey, { global: { headers: { Authorization: authHeader } } });
+  const { data: userData, error: userError } = await userClient.auth.getUser();
+  if (userError || !userData.user) return { error: json({ error: 'UNAUTHORIZED' }, 401), user: null, admin: null };
+  return { error: null, user: userData.user, admin: createClient(supabaseUrl, serviceRoleKey) };
+}
+
 async function fetchCourse(admin: ReturnType<typeof createClient>, courseId: string) {
   const { data, error } = await admin
     .from('courses')
@@ -206,10 +214,10 @@ Deno.serve(async (req) => {
     const parsed = BodySchema.safeParse(await req.json());
     if (!parsed.success) return json({ error: 'INVALID_BODY', details: parsed.error.flatten().fieldErrors }, 400);
 
-    const { error, user, admin } = await requireAdmin(authHeader);
-    if (error || !user || !admin) return error;
-
     const body = parsed.data;
+    const requiresOnlyUser = body.operation === 'orcid_start' || body.operation === 'orcid_callback';
+    const { error, user, admin } = requiresOnlyUser ? await requireUser(authHeader) : await requireAdmin(authHeader);
+    if (error || !user || !admin) return error;
 
     if (body.operation === 'health') {
       return json({
