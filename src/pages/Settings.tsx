@@ -52,7 +52,7 @@ const Settings = () => {
 
   const fetchProfile = async () => {
     if (!user) return;
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from('profiles')
       .select('avatar_url, full_name, orcid_id, orcid_connected')
       .eq('user_id', user.id)
