@@ -196,6 +196,23 @@ const Settings = () => {
           </Button>
         </section>
 
+        <section className="card-elite p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <ExternalLink className="w-5 h-5 text-silver" />
+            <h2 className="font-display text-lg font-semibold text-foreground">Identidad académica ORCID</h2>
+          </div>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">Conecta tu perfil para autoría, trazabilidad docente y publicación académica.</p>
+              <p className="mt-2 text-sm text-foreground">{orcidConnected && orcidId ? `ORCID conectado: ${orcidId}` : 'ORCID no conectado'}</p>
+            </div>
+            <Button variant="outline" onClick={handleConnectOrcid} className="gap-2">
+              <ExternalLink className="w-4 h-4" />
+              {orcidConnected ? 'Reconectar ORCID' : 'Conectar ORCID'}
+            </Button>
+          </div>
+        </section>
+
         {/* Account Status */}
         <section className="card-elite p-6">
           <div className="flex items-center gap-3 mb-4">
