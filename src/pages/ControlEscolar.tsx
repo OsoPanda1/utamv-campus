@@ -1,10 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import { ShieldCheck, Users, BookOpen } from "lucide-react";
+import { useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ShieldCheck, Users, BookOpen, FileCheck2, UploadCloud, Database, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { toast } from "sonner";
+import { doiUrl, invokeScholarlyIntegration, type AcademicPublicationStatus } from "@/lib/scholarly";
 
 interface AdminEnrollment {
   id: string;
@@ -17,6 +24,21 @@ interface AdminEnrollment {
   courses: { title: string; level: string | null } | null;
 }
 
+interface AdminCourse {
+  id: string;
+  title: string;
+  slug: string | null;
+  level: string | null;
+  zenodo_record_id: string | null;
+  zenodo_doi: string | null;
+  figshare_article_id: string | null;
+  figshare_doi: string | null;
+  openaire_project_id: string | null;
+  openaire_badge_url: string | null;
+  academic_publication_status: AcademicPublicationStatus;
+  academic_publication_notes: string | null;
+}
+
 async function fetchAdminEnrollments() {
   const { data, error } = await supabase
     .from("enrollments")
@@ -25,6 +47,16 @@ async function fetchAdminEnrollments() {
     .limit(200);
   if (error) throw error;
   return (data ?? []) as unknown as AdminEnrollment[];
+}
+
+async function fetchAdminCourses() {
+  const { data, error } = await (supabase as any)
+    .from("courses")
+    .select("id,title,slug,level,zenodo_record_id,zenodo_doi,figshare_article_id,figshare_doi,openaire_project_id,openaire_badge_url,academic_publication_status,academic_publication_notes")
+    .order("created_at", { ascending: false })
+    .limit(100);
+  if (error) throw error;
+  return (data ?? []) as AdminCourse[];
 }
 
 async function fetchProfileMap(userIds: string[]) {
