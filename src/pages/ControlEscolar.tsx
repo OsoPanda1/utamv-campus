@@ -143,11 +143,71 @@ const ControlEscolar = () => {
           </p>
         </header>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-4 gap-4">
           <Card className="p-5"><p className="text-xs uppercase text-muted-foreground">Inscripciones</p><p className="text-3xl font-bold mt-2 flex items-center gap-2"><Users className="w-6 h-6 text-primary" /> {total}</p></Card>
           <Card className="p-5"><p className="text-xs uppercase text-muted-foreground">Completados</p><p className="text-3xl font-bold mt-2 flex items-center gap-2"><BookOpen className="w-6 h-6 text-primary" /> {completed}</p></Card>
           <Card className="p-5"><p className="text-xs uppercase text-muted-foreground">Ingresos MXN</p><p className="text-3xl font-bold mt-2">${revenue.toLocaleString()}</p></Card>
+          <Card className="p-5"><p className="text-xs uppercase text-muted-foreground">Publicación académica</p><p className="text-3xl font-bold mt-2 flex items-center gap-2"><FileCheck2 className="w-6 h-6 text-primary" /> {publishedCourses}</p></Card>
         </div>
+
+        <Card className="p-5 space-y-5">
+          <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h2 className="font-display text-xl font-semibold">Pipeline académico internacional</h2>
+              <p className="text-sm text-muted-foreground mt-1">ORCID, Zenodo, Figshare, ISNI y OpenAIRE operan desde backend con Secrets; el cliente solo ejecuta operaciones de alto nivel.</p>
+            </div>
+            <Badge variant="outline" className="w-fit">Producción controlada</Badge>
+          </div>
+
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-5">
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-semibold uppercase text-muted-foreground">Programa</label>
+                <Select value={selectedCourse?.id ?? ""} onValueChange={setSelectedCourseId} disabled={coursesLoading || courses.length === 0}>
+                  <SelectTrigger className="mt-2"><SelectValue placeholder="Seleccionar programa" /></SelectTrigger>
+                  <SelectContent>
+                    {courses.map((course) => <SelectItem key={course.id} value={course.id}>{course.title}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="text-xs font-semibold uppercase text-muted-foreground">Notas de revisión</label>
+                <Textarea value={publicationNotes} onChange={(event) => setPublicationNotes(event.target.value)} className="mt-2" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold uppercase text-muted-foreground">OpenAIRE Project ID</label>
+                <Input value={openaireProjectId} onChange={(event) => setOpenaireProjectId(event.target.value)} className="mt-2" />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button disabled={!selectedCourse || academicMutation.isPending} onClick={() => academicMutation.mutate({ operation: "prepare_course", courseId: selectedCourse?.id, notes: publicationNotes })}>
+                  <FileCheck2 className="w-4 h-4 mr-2" /> Listo para publicación académica
+                </Button>
+                <Button variant="outline" disabled={!selectedCourse || academicMutation.isPending} onClick={() => academicMutation.mutate({ operation: "publish_zenodo", courseId: selectedCourse?.id, publish: false })}>
+                  <UploadCloud className="w-4 h-4 mr-2" /> Publicar en Zenodo sandbox
+                </Button>
+                <Button variant="outline" disabled={!selectedCourse || academicMutation.isPending} onClick={() => academicMutation.mutate({ operation: "sync_figshare", courseId: selectedCourse?.id })}>
+                  <Database className="w-4 h-4 mr-2" /> Sincronizar Figshare
+                </Button>
+                <Button variant="ghost" disabled={!selectedCourse || !openaireProjectId || academicMutation.isPending} onClick={() => academicMutation.mutate({ operation: "link_openaire", courseId: selectedCourse?.id, projectId: openaireProjectId })}>
+                  Vincular OpenAIRE
+                </Button>
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-border bg-muted/20 p-4 space-y-3">
+              <p className="text-xs uppercase text-muted-foreground">Estado del programa</p>
+              <h3 className="font-display text-lg font-semibold">{selectedCourse?.title ?? "Sin programa"}</h3>
+              <Badge variant={selectedCourse?.academic_publication_status === "published" ? "default" : "secondary"}>{selectedCourse?.academic_publication_status ?? "draft"}</Badge>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>Zenodo record: <span className="text-foreground">{selectedCourse?.zenodo_record_id ?? "—"}</span></p>
+                <p>Figshare article: <span className="text-foreground">{selectedCourse?.figshare_article_id ?? "—"}</span></p>
+                <p>OpenAIRE: <span className="text-foreground">{selectedCourse?.openaire_project_id ?? "—"}</span></p>
+                {selectedCourse?.zenodo_doi && <a className="inline-flex items-center gap-1 text-primary hover:underline" href={doiUrl(selectedCourse.zenodo_doi)} target="_blank" rel="noreferrer">DOI Zenodo <ExternalLink className="w-3 h-3" /></a>}
+                {selectedCourse?.figshare_doi && <a className="inline-flex items-center gap-1 text-primary hover:underline" href={doiUrl(selectedCourse.figshare_doi)} target="_blank" rel="noreferrer">DOI Figshare <ExternalLink className="w-3 h-3" /></a>}
+              </div>
+            </div>
+          </div>
+        </Card>
 
         <Card className="overflow-hidden">
           <div className="p-5 border-b">
