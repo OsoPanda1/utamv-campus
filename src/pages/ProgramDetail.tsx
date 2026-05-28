@@ -2,8 +2,10 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, BarChart3, Monitor, GraduationCap, CheckCircle, BookOpen, ShieldCheck, CreditCard } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, Clock, BarChart3, Monitor, GraduationCap, CheckCircle, BookOpen, ShieldCheck, CreditCard, ExternalLink, Database, FileCheck2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { doiUrl, fetchAcademicCourseMetadata, type AcademicCourseMetadata } from '@/lib/scholarly';
 
 interface ProgramModule {
   title: string;
@@ -504,8 +506,18 @@ const programsData: Record<string, ProgramData> = {
 const ProgramDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [expandedModule, setExpandedModule] = useState<number | null>(null);
+  const [academicMetadata, setAcademicMetadata] = useState<AcademicCourseMetadata | null>(null);
 
   const program = slug ? programsData[slug] : null;
+
+  useEffect(() => {
+    let mounted = true;
+    if (!slug) return;
+    fetchAcademicCourseMetadata(slug).then((metadata) => {
+      if (mounted) setAcademicMetadata(metadata);
+    });
+    return () => { mounted = false; };
+  }, [slug]);
 
   if (!program) {
     return (
