@@ -73,6 +73,10 @@ async function fetchProfileMap(userIds: string[]) {
 
 const ControlEscolar = () => {
   const { user, profile, isAdmin, loading } = useAuth();
+  const queryClient = useQueryClient();
+  const [selectedCourseId, setSelectedCourseId] = useState<string>("");
+  const [publicationNotes, setPublicationNotes] = useState("Curso auditado por Control Escolar y listo para depósito académico.");
+  const [openaireProjectId, setOpenaireProjectId] = useState("utamv-campus");
 
   const { data: enrollments = [], isLoading, error } = useQuery({
     queryKey: ["control-escolar-enrollments"],
@@ -85,6 +89,26 @@ const ControlEscolar = () => {
     queryKey: ["control-escolar-profiles", userIds],
     queryFn: () => fetchProfileMap(userIds),
     enabled: isAdmin && userIds.length > 0,
+  });
+
+  const { data: courses = [], isLoading: coursesLoading } = useQuery({
+    queryKey: ["control-escolar-academic-courses"],
+    queryFn: fetchAdminCourses,
+    enabled: isAdmin,
+  });
+
+  const selectedCourse = useMemo(
+    () => courses.find((course) => course.id === selectedCourseId) ?? courses[0],
+    [courses, selectedCourseId],
+  );
+
+  const academicMutation = useMutation({
+    mutationFn: async (body: Record<string, unknown>) => invokeScholarlyIntegration(body),
+    onSuccess: () => {
+      toast.success("Pipeline académico actualizado");
+      queryClient.invalidateQueries({ queryKey: ["control-escolar-academic-courses"] });
+    },
+    onError: (err) => toast.error(err instanceof Error ? err.message : "No se pudo ejecutar la integración académica"),
   });
 
   if (loading) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground">Cargando…</div>;
@@ -104,6 +128,7 @@ const ControlEscolar = () => {
   const total = enrollments.length;
   const completed = enrollments.filter((e) => e.completed_at).length;
   const revenue = enrollments.reduce((s, e) => s + Number(e.amount_paid_mxn ?? 0), 0);
+  const publishedCourses = courses.filter((course) => course.academic_publication_status === "published" || course.zenodo_doi || course.figshare_doi).length;
 
   return (
     <div className="min-h-screen bg-background py-10">
