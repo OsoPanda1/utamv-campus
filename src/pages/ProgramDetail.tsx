@@ -564,6 +564,21 @@ const ProgramDetail = () => {
                 <div className="flex items-center gap-2"><BarChart3 className="w-4 h-4" />{program.level}</div>
               </div>
 
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Badge variant="outline" className="gap-1.5"><FileCheck2 className="w-3.5 h-3.5" /> ISO 21001 / Quality Matters</Badge>
+                {academicMetadata?.openaire_project_id && <Badge variant="outline" className="gap-1.5"><Database className="w-3.5 h-3.5" /> OpenAIRE</Badge>}
+                {academicMetadata?.zenodo_doi && (
+                  <a href={doiUrl(academicMetadata.zenodo_doi)} target="_blank" rel="noreferrer">
+                    <Badge variant="default" className="gap-1.5">DOI Zenodo <ExternalLink className="w-3 h-3" /></Badge>
+                  </a>
+                )}
+                {academicMetadata?.figshare_doi && (
+                  <a href={doiUrl(academicMetadata.figshare_doi)} target="_blank" rel="noreferrer">
+                    <Badge variant="default" className="gap-1.5">DOI Figshare <ExternalLink className="w-3 h-3" /></Badge>
+                  </a>
+                )}
+              </div>
+
               {/* Pricing badge */}
               <div className="mt-6 inline-flex items-center gap-4 px-5 py-3 rounded-xl border border-border bg-card/50">
                 <div>
