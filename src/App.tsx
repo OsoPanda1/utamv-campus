@@ -46,6 +46,7 @@ import Certificates from "@/pages/campus/Certificates";
 import Campus from "@/pages/Campus";
 import ControlEscolar from "@/pages/ControlEscolar";
 import CursoLeccion from "@/pages/CursoLeccion";
+import Colaboraciones from "@/pages/admin/Colaboraciones";
 
 // Route Guards
 import { RequireAuth } from "@/components/guards/RequireAuth";
