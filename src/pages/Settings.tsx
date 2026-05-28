@@ -19,6 +19,7 @@ import {
   CreditCard,
   Mail,
   Shield,
+  ExternalLink,
 } from 'lucide-react';
 
 const Settings = () => {
@@ -29,6 +30,8 @@ const Settings = () => {
 
   const [fullName, setFullName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [orcidId, setOrcidId] = useState<string | null>(null);
+  const [orcidConnected, setOrcidConnected] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -51,12 +54,14 @@ const Settings = () => {
     if (!user) return;
     const { data } = await supabase
       .from('profiles')
-      .select('avatar_url, full_name')
+      .select('avatar_url, full_name, orcid_id, orcid_connected')
       .eq('user_id', user.id)
       .maybeSingle();
     if (data) {
       setAvatarUrl(data.avatar_url);
       if (data.full_name) setFullName(data.full_name);
+      setOrcidId((data as any).orcid_id ?? null);
+      setOrcidConnected(Boolean((data as any).orcid_connected));
     }
   };
 
@@ -116,6 +121,10 @@ const Settings = () => {
     } else {
       localStorage.setItem('utamv-disable-intro', 'true');
     }
+  };
+
+  const handleConnectOrcid = () => {
+    window.location.href = '/auth/orcid/start';
   };
 
   if (loading) {
