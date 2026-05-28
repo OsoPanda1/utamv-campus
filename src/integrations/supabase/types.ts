@@ -1185,27 +1185,36 @@ export type Database = {
       }
       support_tickets: {
         Row: {
+          admin_notes: string | null
           created_at: string | null
           id: string
           message: string
+          priority: string
           status: string | null
           subject: string
+          updated_at: string
           user_id: string
         }
         Insert: {
+          admin_notes?: string | null
           created_at?: string | null
           id?: string
           message: string
+          priority?: string
           status?: string | null
           subject: string
+          updated_at?: string
           user_id: string
         }
         Update: {
+          admin_notes?: string | null
           created_at?: string | null
           id?: string
           message?: string
+          priority?: string
           status?: string | null
           subject?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []

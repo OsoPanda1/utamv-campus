@@ -46,6 +46,7 @@ import Certificates from "@/pages/campus/Certificates";
 import Campus from "@/pages/Campus";
 import ControlEscolar from "@/pages/ControlEscolar";
 import CursoLeccion from "@/pages/CursoLeccion";
+import Colaboraciones from "@/pages/admin/Colaboraciones";
 
 // Route Guards
 import { RequireAuth } from "@/components/guards/RequireAuth";
@@ -115,6 +116,7 @@ function App() {
         <Route path="/campus/enrollments" element={<RequireAuth><Enrollments /></RequireAuth>} />
         <Route path="/campus/certificates" element={<RequireAuth><Certificates /></RequireAuth>} />
         <Route path="/control-escolar" element={<RequireAuth><RequireAdmin><ControlEscolar /></RequireAdmin></RequireAuth>} />
+        <Route path="/admin/colaboraciones" element={<RequireAuth><RequireAdmin><Colaboraciones /></RequireAdmin></RequireAuth>} />
         <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
         <Route path="/modulos" element={<RequireAuth><RequirePaid><Modulos /></RequirePaid></RequireAuth>} />
         <Route path="/modulos/:id" element={<RequireAuth><RequirePaid><ModuleViewer /></RequirePaid></RequireAuth>} />
