@@ -111,7 +111,7 @@ const Colaboraciones = () => {
   });
 
   const updateTicket = useMutation({
-    mutationFn: async (patch: Partial<Ticket> & { id: string }) => {
+    mutationFn: async (patch: { id: string; status?: TicketStatus; priority?: TicketPriority; admin_notes?: string }) => {
       const { id, ...fields } = patch;
       const { error } = await supabase
         .from("support_tickets")
