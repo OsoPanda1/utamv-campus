@@ -681,6 +681,31 @@ const ProgramDetail = () => {
               </div>
             </section>
 
+            {/* Scholarly publication */}
+            <section className="p-8 rounded-xl border border-border bg-card/30">
+              <div className="flex items-start gap-4">
+                <Database className="w-8 h-8 text-muted-foreground shrink-0 mt-1" />
+                <div className="space-y-3">
+                  <h2 className="font-display text-xl font-bold text-foreground tracking-wider uppercase">Registro académico interoperable</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Metadatos preparados para repositorios académicos, trazabilidad DOI y vinculación con identificadores persistentes.</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">ORCID</Badge>
+                    <Badge variant="outline">ISNI</Badge>
+                    <Badge variant="outline">Zenodo</Badge>
+                    <Badge variant="outline">Figshare</Badge>
+                    <Badge variant="outline">OpenAIRE</Badge>
+                    <Badge variant={academicMetadata?.academic_publication_status === 'published' ? 'default' : 'secondary'}>{academicMetadata?.academic_publication_status ?? 'draft'}</Badge>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3 text-xs text-muted-foreground">
+                    <p>Zenodo record: <span className="text-foreground">{academicMetadata?.zenodo_record_id ?? 'Pendiente'}</span></p>
+                    <p>Figshare article: <span className="text-foreground">{academicMetadata?.figshare_article_id ?? 'Pendiente'}</span></p>
+                    <p>OpenAIRE: <span className="text-foreground">{academicMetadata?.openaire_project_id ?? 'Pendiente'}</span></p>
+                    <p>DOI: <span className="text-foreground">{academicMetadata?.zenodo_doi ?? academicMetadata?.figshare_doi ?? 'Pendiente'}</span></p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
               <Button variant="outline" size="lg" asChild>
