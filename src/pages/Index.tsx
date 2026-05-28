@@ -362,6 +362,10 @@ const Index = () => {
                         <span className="text-foreground">{prog.level}</span>
                       </div>
                     </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Badge variant="outline" className="text-[10px]">DOI ready</Badge>
+                      <Badge variant="outline" className="text-[10px]">OpenAIRE</Badge>
+                    </div>
                     <div className="mt-5 text-xs font-semibold text-silver tracking-wider group-hover:translate-x-1 transition-transform">
                       Ver ficha académica →
                     </div>
