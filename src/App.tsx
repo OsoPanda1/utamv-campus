@@ -22,6 +22,8 @@ import NotFound from "@/pages/NotFound";
 import PlaceholderPage from "@/pages/PlaceholderPage";
 import Catalogo from "@/pages/Catalogo";
 import Colabora from "@/pages/Colabora";
+import OrcidStart from "@/pages/OrcidStart";
+import OrcidCallback from "@/pages/OrcidCallback";
 import Maestrias from "@/pages/programs/Maestrias";
 import MasterProfesional from "@/pages/programs/MasterProfesional";
 import Diplomados from "@/pages/programs/Diplomados";
@@ -61,6 +63,8 @@ function App() {
         {/* RUTAS PÚBLICAS */}
         <Route path="/" element={<Index />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/orcid/start" element={<RequireAuth><OrcidStart /></RequireAuth>} />
+        <Route path="/auth/orcid/callback" element={<RequireAuth><OrcidCallback /></RequireAuth>} />
         <Route path="/reset-password" element={<ResetPassword />} />
         
         {/* Programas */}

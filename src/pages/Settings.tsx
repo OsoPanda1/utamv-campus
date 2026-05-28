@@ -19,6 +19,7 @@ import {
   CreditCard,
   Mail,
   Shield,
+  ExternalLink,
 } from 'lucide-react';
 
 const Settings = () => {
@@ -29,6 +30,8 @@ const Settings = () => {
 
   const [fullName, setFullName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [orcidId, setOrcidId] = useState<string | null>(null);
+  const [orcidConnected, setOrcidConnected] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -49,14 +52,16 @@ const Settings = () => {
 
   const fetchProfile = async () => {
     if (!user) return;
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from('profiles')
-      .select('avatar_url, full_name')
+      .select('avatar_url, full_name, orcid_id, orcid_connected')
       .eq('user_id', user.id)
       .maybeSingle();
     if (data) {
       setAvatarUrl(data.avatar_url);
       if (data.full_name) setFullName(data.full_name);
+      setOrcidId((data as any).orcid_id ?? null);
+      setOrcidConnected(Boolean((data as any).orcid_connected));
     }
   };
 
@@ -116,6 +121,10 @@ const Settings = () => {
     } else {
       localStorage.setItem('utamv-disable-intro', 'true');
     }
+  };
+
+  const handleConnectOrcid = () => {
+    window.location.href = '/auth/orcid/start';
   };
 
   if (loading) {
@@ -185,6 +194,23 @@ const Settings = () => {
             <Save className="w-4 h-4" />
             {saving ? 'Guardando...' : 'Guardar perfil'}
           </Button>
+        </section>
+
+        <section className="card-elite p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <ExternalLink className="w-5 h-5 text-silver" />
+            <h2 className="font-display text-lg font-semibold text-foreground">Identidad académica ORCID</h2>
+          </div>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">Conecta tu perfil para autoría, trazabilidad docente y publicación académica.</p>
+              <p className="mt-2 text-sm text-foreground">{orcidConnected && orcidId ? `ORCID conectado: ${orcidId}` : 'ORCID no conectado'}</p>
+            </div>
+            <Button variant="outline" onClick={handleConnectOrcid} className="gap-2">
+              <ExternalLink className="w-4 h-4" />
+              {orcidConnected ? 'Reconectar ORCID' : 'Conectar ORCID'}
+            </Button>
+          </div>
         </section>
 
         {/* Account Status */}

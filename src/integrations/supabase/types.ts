@@ -209,9 +209,14 @@ export type Database = {
       }
       courses: {
         Row: {
+          academic_publication_notes: string | null
+          academic_publication_status: string
+          academic_published_at: string | null
           category: string | null
           created_at: string | null
           description: string | null
+          figshare_article_id: string | null
+          figshare_doi: string | null
           hours: number | null
           id: string
           instructor_bio: string | null
@@ -220,6 +225,8 @@ export type Database = {
           is_featured: boolean | null
           learning_outcomes: string[] | null
           level: string | null
+          openaire_badge_url: string | null
+          openaire_project_id: string | null
           prerequisites: string[] | null
           price_cents: number | null
           price_mxn: number | null
@@ -230,11 +237,19 @@ export type Database = {
           thumbnail_url: string | null
           title: string
           total_lessons: number | null
+          zenodo_concept_doi: string | null
+          zenodo_doi: string | null
+          zenodo_record_id: string | null
         }
         Insert: {
+          academic_publication_notes?: string | null
+          academic_publication_status?: string
+          academic_published_at?: string | null
           category?: string | null
           created_at?: string | null
           description?: string | null
+          figshare_article_id?: string | null
+          figshare_doi?: string | null
           hours?: number | null
           id?: string
           instructor_bio?: string | null
@@ -243,6 +258,8 @@ export type Database = {
           is_featured?: boolean | null
           learning_outcomes?: string[] | null
           level?: string | null
+          openaire_badge_url?: string | null
+          openaire_project_id?: string | null
           prerequisites?: string[] | null
           price_cents?: number | null
           price_mxn?: number | null
@@ -253,11 +270,19 @@ export type Database = {
           thumbnail_url?: string | null
           title: string
           total_lessons?: number | null
+          zenodo_concept_doi?: string | null
+          zenodo_doi?: string | null
+          zenodo_record_id?: string | null
         }
         Update: {
+          academic_publication_notes?: string | null
+          academic_publication_status?: string
+          academic_published_at?: string | null
           category?: string | null
           created_at?: string | null
           description?: string | null
+          figshare_article_id?: string | null
+          figshare_doi?: string | null
           hours?: number | null
           id?: string
           instructor_bio?: string | null
@@ -266,6 +291,8 @@ export type Database = {
           is_featured?: boolean | null
           learning_outcomes?: string[] | null
           level?: string | null
+          openaire_badge_url?: string | null
+          openaire_project_id?: string | null
           prerequisites?: string[] | null
           price_cents?: number | null
           price_mxn?: number | null
@@ -276,6 +303,9 @@ export type Database = {
           thumbnail_url?: string | null
           title?: string
           total_lessons?: number | null
+          zenodo_concept_doi?: string | null
+          zenodo_doi?: string | null
+          zenodo_record_id?: string | null
         }
         Relationships: []
       }
@@ -312,6 +342,51 @@ export type Database = {
           stripe_payment_intent?: string | null
           stripe_session_id?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      institutional_scholarly_config: {
+        Row: {
+          created_at: string
+          figshare_group_id: string | null
+          id: string
+          institution_name: string
+          institution_slug: string
+          isni_id: string | null
+          openaire_project_id: string | null
+          orcid_org_id: string | null
+          repository_policy_url: string | null
+          updated_at: string
+          updated_by: string | null
+          zenodo_community: string | null
+        }
+        Insert: {
+          created_at?: string
+          figshare_group_id?: string | null
+          id?: string
+          institution_name?: string
+          institution_slug?: string
+          isni_id?: string | null
+          openaire_project_id?: string | null
+          orcid_org_id?: string | null
+          repository_policy_url?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          zenodo_community?: string | null
+        }
+        Update: {
+          created_at?: string
+          figshare_group_id?: string | null
+          id?: string
+          institution_name?: string
+          institution_slug?: string
+          isni_id?: string | null
+          openaire_project_id?: string | null
+          orcid_org_id?: string | null
+          repository_policy_url?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          zenodo_community?: string | null
         }
         Relationships: []
       }
@@ -666,8 +741,12 @@ export type Database = {
           full_name: string | null
           id: string
           is_paid: boolean | null
+          isni_id: string | null
           level: number
           linkedin_url: string | null
+          orcid_access_granted_at: string | null
+          orcid_connected: boolean
+          orcid_id: string | null
           phone: string | null
           profession: string | null
           role: string | null
@@ -688,8 +767,12 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_paid?: boolean | null
+          isni_id?: string | null
           level?: number
           linkedin_url?: string | null
+          orcid_access_granted_at?: string | null
+          orcid_connected?: boolean
+          orcid_id?: string | null
           phone?: string | null
           profession?: string | null
           role?: string | null
@@ -710,8 +793,12 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_paid?: boolean | null
+          isni_id?: string | null
           level?: number
           linkedin_url?: string | null
+          orcid_access_granted_at?: string | null
+          orcid_connected?: boolean
+          orcid_id?: string | null
           phone?: string | null
           profession?: string | null
           role?: string | null

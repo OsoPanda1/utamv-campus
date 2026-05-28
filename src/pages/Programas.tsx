@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
-import { Clock, BarChart3, Monitor, GraduationCap } from 'lucide-react';
+import { Clock, BarChart3, Monitor, GraduationCap, Database, FileCheck2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const allPrograms = [
   // Maestrías
@@ -248,6 +249,12 @@ const Programas = () => {
                     <div className="mt-4 text-xs font-semibold text-platinum tracking-wider group-hover:translate-x-1 transition-transform">
                       Ver ficha académica →
                     </div>
+                    {['fundamentos-marketing-digital', 'master-marketing-digital-2026', 'doctorado-inteligencia-estrategica'].includes(prog.slug) && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <Badge variant="outline" className="gap-1 text-[10px]"><FileCheck2 className="w-3 h-3" /> DOI ready</Badge>
+                        <Badge variant="outline" className="gap-1 text-[10px]"><Database className="w-3 h-3" /> OpenAIRE</Badge>
+                      </div>
+                    )}
                   </div>
                 </Link>
               ))}

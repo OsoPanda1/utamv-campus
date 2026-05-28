@@ -3,6 +3,7 @@ import Footer from '@/components/Footer';
 import IsabellaChatButton from '@/components/IsabellaChatButton';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
   BookOpen, Users, Award, Microscope, GraduationCap, Globe, ShieldCheck, 
   BarChart3, Brain, Target, ChevronRight, Building2, TrendingUp, 
@@ -360,6 +361,10 @@ const Index = () => {
                         <span>Nivel</span>
                         <span className="text-foreground">{prog.level}</span>
                       </div>
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Badge variant="outline" className="text-[10px]">DOI ready</Badge>
+                      <Badge variant="outline" className="text-[10px]">OpenAIRE</Badge>
                     </div>
                     <div className="mt-5 text-xs font-semibold text-silver tracking-wider group-hover:translate-x-1 transition-transform">
                       Ver ficha académica →

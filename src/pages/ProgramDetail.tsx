@@ -2,8 +2,10 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, BarChart3, Monitor, GraduationCap, CheckCircle, BookOpen, ShieldCheck, CreditCard } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, Clock, BarChart3, Monitor, GraduationCap, CheckCircle, BookOpen, ShieldCheck, CreditCard, ExternalLink, Database, FileCheck2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { doiUrl, fetchAcademicCourseMetadata, type AcademicCourseMetadata } from '@/lib/scholarly';
 
 interface ProgramModule {
   title: string;
@@ -504,8 +506,18 @@ const programsData: Record<string, ProgramData> = {
 const ProgramDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [expandedModule, setExpandedModule] = useState<number | null>(null);
+  const [academicMetadata, setAcademicMetadata] = useState<AcademicCourseMetadata | null>(null);
 
   const program = slug ? programsData[slug] : null;
+
+  useEffect(() => {
+    let mounted = true;
+    if (!slug) return;
+    fetchAcademicCourseMetadata(slug).then((metadata) => {
+      if (mounted) setAcademicMetadata(metadata);
+    });
+    return () => { mounted = false; };
+  }, [slug]);
 
   if (!program) {
     return (
@@ -550,6 +562,21 @@ const ProgramDetail = () => {
                 <div className="flex items-center gap-2"><GraduationCap className="w-4 h-4" />{program.duration}</div>
                 <div className="flex items-center gap-2"><Monitor className="w-4 h-4" />{program.modality}</div>
                 <div className="flex items-center gap-2"><BarChart3 className="w-4 h-4" />{program.level}</div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Badge variant="outline" className="gap-1.5"><FileCheck2 className="w-3.5 h-3.5" /> ISO 21001 / Quality Matters</Badge>
+                {academicMetadata?.openaire_project_id && <Badge variant="outline" className="gap-1.5"><Database className="w-3.5 h-3.5" /> OpenAIRE</Badge>}
+                {academicMetadata?.zenodo_doi && (
+                  <a href={doiUrl(academicMetadata.zenodo_doi)} target="_blank" rel="noreferrer">
+                    <Badge variant="default" className="gap-1.5">DOI Zenodo <ExternalLink className="w-3 h-3" /></Badge>
+                  </a>
+                )}
+                {academicMetadata?.figshare_doi && (
+                  <a href={doiUrl(academicMetadata.figshare_doi)} target="_blank" rel="noreferrer">
+                    <Badge variant="default" className="gap-1.5">DOI Figshare <ExternalLink className="w-3 h-3" /></Badge>
+                  </a>
+                )}
               </div>
 
               {/* Pricing badge */}
@@ -650,6 +677,31 @@ const ProgramDetail = () => {
                   <Link to="/verificar-certificado" className="inline-block mt-4 text-xs font-semibold text-muted-foreground tracking-wider hover:text-foreground hover:underline transition-colors">
                     Verificar un certificado →
                   </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* Scholarly publication */}
+            <section className="p-8 rounded-xl border border-border bg-card/30">
+              <div className="flex items-start gap-4">
+                <Database className="w-8 h-8 text-muted-foreground shrink-0 mt-1" />
+                <div className="space-y-3">
+                  <h2 className="font-display text-xl font-bold text-foreground tracking-wider uppercase">Registro académico interoperable</h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Metadatos preparados para repositorios académicos, trazabilidad DOI y vinculación con identificadores persistentes.</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">ORCID</Badge>
+                    <Badge variant="outline">ISNI</Badge>
+                    <Badge variant="outline">Zenodo</Badge>
+                    <Badge variant="outline">Figshare</Badge>
+                    <Badge variant="outline">OpenAIRE</Badge>
+                    <Badge variant={academicMetadata?.academic_publication_status === 'published' ? 'default' : 'secondary'}>{academicMetadata?.academic_publication_status ?? 'draft'}</Badge>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3 text-xs text-muted-foreground">
+                    <p>Zenodo record: <span className="text-foreground">{academicMetadata?.zenodo_record_id ?? 'Pendiente'}</span></p>
+                    <p>Figshare article: <span className="text-foreground">{academicMetadata?.figshare_article_id ?? 'Pendiente'}</span></p>
+                    <p>OpenAIRE: <span className="text-foreground">{academicMetadata?.openaire_project_id ?? 'Pendiente'}</span></p>
+                    <p>DOI: <span className="text-foreground">{academicMetadata?.zenodo_doi ?? academicMetadata?.figshare_doi ?? 'Pendiente'}</span></p>
+                  </div>
                 </div>
               </div>
             </section>
