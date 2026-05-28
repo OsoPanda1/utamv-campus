@@ -3,6 +3,7 @@ import Footer from '@/components/Footer';
 import IsabellaChatButton from '@/components/IsabellaChatButton';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
   BookOpen, Users, Award, Microscope, GraduationCap, Globe, ShieldCheck, 
   BarChart3, Brain, Target, ChevronRight, Building2, TrendingUp, 
