@@ -1,43 +1,22 @@
-# Módulo 6 · Investigación, Métricas EOCT y Defensa
+# Módulo 6 · Auditoría forense, métricas EOCT y defensa
 
 ## Propósito
 
-Este módulo cierra el ciclo del Método 4L / TAMV conectando el diseño e implementación de sistemas digitales con su medición, documentación y defensa.
-
-El participante aprende a demostrar, con evidencia, que un sistema basado en TAMV y 4L genera impacto real en dimensiones económicas, operativas, científicas y transaccionales (EOCT), y a convertir ese impacto en material citable y defendible ante paneles, clientes, comunidades e incluso motores de respuesta basados en IA.
+Este módulo permite auditar sistemas digitales, reconstruir decisiones y demostrar impacto con evidencia.
 
 ## Resultado esperado
 
-Al finalizar este módulo serás capaz de:
+El estudiante produce una auditoría defendible de arquitectura digital con hallazgos, evidencias, riesgos y recomendaciones.
 
-- Diseñar un plan de medición EOCT para un sistema digital.
-- Construir instrumentos y protocolos de evaluación.
-- Documentar resultados en formatos legibles por humanos e IA.
-- Preparar una defensa estructurada de 10–15 minutos.
+## Estructura
 
-## Estructura del módulo
+- [01 · Objetivos](./01-objetivos.md)
+- [02 · Lecciones](./02-lecciones.md)
+- [03 · Casos](./03-casos.md)
+- [04 · Ejercicios](./04-ejercicios.md)
+- [05 · Entregable](./05-entregable.md)
+- [06 · Rúbrica](./06-rubrica.md)
 
-- [Fundamentos EOCT](./01-fundamentos-eoct.md)
-- [Plan de medición](./02-plan-de-medicion.md)
-- [Instrumentos y protocolos](./03-instrumentos-y-protocolos.md)
-- [Documentación citable](./04-documentacion-citable.md)
-- [Defensa y transferencia](./05-defensa-y-transferencia.md)
-- [Entrega obligatoria](./06-entrega-obligatoria.md)
+## Entregable central
 
-## Aplicación práctica
-
-### Vida personal
-Diseñar sistemas de mejora continua y medir si realmente funcionan.
-
-### Trabajo profesional
-Tomar decisiones con evidencia, no con intuición aislada.
-
-### Empresa
-Diagnosticar, intervenir y defender una arquitectura digital con métricas reales.
-
-### Clientes
-Traducir resultados técnicos en narrativas ejecutivas y reutilizables.
-
-## Relación con el sistema TAMV
-
-El Módulo 6 opera como puente entre el diseño de sistemas (TAMV/4L) y su validación científica y ejecutiva, utilizando marcos EOCT y documentación citable.
+Informe de auditoría forense con cronología, evidencias, lectura EOCT, hallazgos y defensa de recomendaciones.

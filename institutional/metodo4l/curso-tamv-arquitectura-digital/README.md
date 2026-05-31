@@ -10,21 +10,21 @@ Pasar de ejecutar tácticas aisladas a diseñar, auditar y defender arquitectura
 
 | Módulo | Nombre | Estado |
 |---|---|---|
-| 00 | Intro · Marco TAMV y rol del arquitecto | Estructura base |
+| 00 | Intro · Marco TAMV y rol del arquitecto | Integrado como apertura operativa |
 | 01 | Epistemología y Sistemas Complejos | Completo |
-| 02 | Método 4L | Estructura base |
-| 03 | Mercado como Sistema Vivo | Estructura base |
-| 04 | Soberanía de Datos y Modelado Estocástico | Estructura base |
-| 05 | SEO · AEO · GEO | Estructura base |
-| 06 | Auditoría Forense | Estructura base |
-| 07 | Contenido Citable por IA | Estructura base |
-| 08 | Seguridad, Datos, IA y Sistemas Híbridos | Estructura base |
-| 09 | Investigación y Defensa | Estructura base |
-| 10 | Proyecto Final | Estructura base |
+| 02 | Método 4L | Completo |
+| 03 | Mercado como Sistema Vivo | Completo |
+| 04 | Soberanía de Datos y Modelado Estocástico | Completo |
+| 05 | SEO · AEO · GEO | Completo |
+| 06 | Auditoría Forense | Completo |
+| 07 | Contenido Citable por IA | Completo |
+| 08 | Seguridad, Datos, IA y Sistemas Híbridos | Completo |
+| 09 | Investigación y Defensa | Completo |
+| 10 | Proyecto Final | Completo |
 
 ## Convención patrón por módulo
 
-Cada módulo debe tender a esta estructura:
+Cada módulo usa la estructura:
 
 ```text
 README.md
@@ -36,4 +36,16 @@ README.md
 06-rubrica.md
 ```
 
-El Módulo 1 funciona como patrón editorial, pedagógico y operativo para desarrollar los siguientes módulos.
+Cuando un módulo requiere piezas adicionales, se conservan como lecturas o plantillas complementarias.
+
+## Regla institucional de cierre
+
+Para aprobar el curso, cada estudiante debe demostrar:
+
+1. lectura sistémica del contexto,
+2. hipótesis de intervención,
+3. evidencia EOCT,
+4. documentación transferible,
+5. defensa profesional de límites, riesgos y aprendizajes.
+
+El proyecto final puede usar como caso integrador una arquitectura territorial tipo **RDM Digital / Sistema Operativo Territorial**, siempre que se presente como sistema auditable y no como promesa abstracta.
