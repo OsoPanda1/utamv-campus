@@ -92,6 +92,33 @@ export const markdownLessonIndex = {
       endMarker: '# =========================================================================',
     },
   },
+  ml_libraries: {
+    'intro-ml': {
+      file: 'ml_libraries_isabella.md',
+      startMarker: '## I. INTRODUCCION A ML',
+      endMarker: '## II. BIBLIOTECAS GENERALES',
+    },
+    'bibliotecas-generales': {
+      file: 'ml_libraries_isabella.md',
+      startMarker: '## II. BIBLIOTECAS GENERALES',
+      endMarker: '## III. BIBLIOTECAS ESPECIALIZADAS',
+    },
+    'bibliotecas-especializadas': {
+      file: 'ml_libraries_isabella.md',
+      startMarker: '## III. BIBLIOTECAS ESPECIALIZADAS',
+      endMarker: '## IV. RUTA UTAMV',
+    },
+    'ruta-master-ia': {
+      file: 'ml_libraries_isabella.md',
+      startMarker: '## IV. RUTA UTAMV',
+      endMarker: '## V. PRINCIPIOS UTAMV',
+    },
+    'principios-ml-responsable': {
+      file: 'ml_libraries_isabella.md',
+      startMarker: '## V. PRINCIPIOS UTAMV',
+      endMarker: '## VI. REFERENCIAS DE ISABELLA',
+    },
+  },
 } as const satisfies Record<string, Record<string, MarkdownBlockConfig>>;
 
 export type MarkdownCourseKey = keyof typeof markdownLessonIndex;
