@@ -93,6 +93,67 @@ export const curriculumCourses: CurriculumCourse[] = [
       },
     ],
   },
+  {
+    id: 'utamv-ml-libraries',
+    slug: 'utamv-ml-libraries',
+    sourceKey: 'ml_libraries',
+    title: 'Master IA Aplicada — Bibliotecas de Machine Learning',
+    level: 'master',
+    description:
+      'Ruta UTAMV para dominar el stack open source de ML: NumPy, pandas, scikit-learn, PyTorch, TensorFlow/Keras, Hugging Face, MLflow y MLOps. Fuente curada: IBM Think (David Zax) + síntesis institucional UTAMV.',
+    modules: [
+      {
+        id: 'ml-m1-intro',
+        slug: 'modulo-1-introduccion-ml',
+        title: 'Módulo 1: Introducción a Machine Learning',
+        order: 1,
+        description: 'Disciplinas, ciclo de vida y panorama del stack ML.',
+        lessons: [
+          { type: 'markdown', blockId: 'intro-ml', title: 'Panorama del ML moderno', slug: 'intro', order: 1, estimatedMinutes: 15 },
+        ],
+      },
+      {
+        id: 'ml-m2-generales',
+        slug: 'modulo-2-bibliotecas-generales',
+        title: 'Módulo 2: Bibliotecas Generales',
+        order: 2,
+        description: 'NumPy, TensorFlow, Keras, PyTorch, scikit-learn, XGBoost.',
+        lessons: [
+          { type: 'markdown', blockId: 'bibliotecas-generales', title: 'Infraestructura central de ML', slug: 'generales', order: 1, estimatedMinutes: 30 },
+        ],
+      },
+      {
+        id: 'ml-m3-especializadas',
+        slug: 'modulo-3-bibliotecas-especializadas',
+        title: 'Módulo 3: Bibliotecas Especializadas',
+        order: 3,
+        description: 'pandas, matplotlib/seaborn, MLflow, Hugging Face, Stable-Baselines3.',
+        lessons: [
+          { type: 'markdown', blockId: 'bibliotecas-especializadas', title: 'Stack por etapa del pipeline', slug: 'especializadas', order: 1, estimatedMinutes: 25 },
+        ],
+      },
+      {
+        id: 'ml-m4-ruta',
+        slug: 'modulo-4-ruta-master',
+        title: 'Módulo 4: Ruta Master IA Aplicada UTAMV',
+        order: 4,
+        description: '10 módulos progresivos con biblioteca eje y entregables certificables.',
+        lessons: [
+          { type: 'markdown', blockId: 'ruta-master-ia', title: 'Mapa de aprendizaje 10 módulos', slug: 'ruta', order: 1, estimatedMinutes: 20 },
+        ],
+      },
+      {
+        id: 'ml-m5-principios',
+        slug: 'modulo-5-ml-responsable',
+        title: 'Módulo 5: ML Responsable UTAMV',
+        order: 5,
+        description: 'Soberanía cognitiva, trazabilidad académica, sesgos y LATAM first.',
+        lessons: [
+          { type: 'markdown', blockId: 'principios-ml-responsable', title: 'Principios institucionales', slug: 'principios', order: 1, estimatedMinutes: 15 },
+        ],
+      },
+    ],
+  },
 ];
 
 export function findCurriculumCourse(slug: string) {
